@@ -3,7 +3,7 @@
 This repository contains several CNNs for semantic segmentation (U-Net, SegNet, ResNet, FractalNet) using Keras library.
 The code was developed assuming the use of depth data (e.g. Kinect, Asus Xtion Pro Live).
 
-You can test these script on the following datasets:
+You can test these scripts on the following datasets:
 
 * [TVPR (Top View Person Re-identification) Dataset](http://vrai.dii.univpm.it/tvheads-dataset)
 * [PIDS (Preterm Infants' Depth Silhouette) Dataset](http://vrai.dii.univpm.it/pids-dataset)
@@ -12,7 +12,7 @@ You can test these script on the following datasets:
 [![YouTubeDemoInfant](https://img.youtube.com/vi/_GCnkUXPTJk/0.jpg)](https://www.youtube.com/watch?v=_GCnkUXPTJk)
 
 ## Data
-Provided data is processed by data.py script. This script just loads the images and saves them into NumPy binary format files `.npy` for faster loading later.
+Provided data is processed by `data.py` script. This script just loads the images and saves them into NumPy binary format files `.npy` for faster loading later.
 
 ```bash
 python data.py
@@ -66,3 +66,6 @@ pip3 install --upgrade keras scikit-learn scikit-image h5py opencv-python primes
 
 ### Author
 * Daniele Liciotti | [GitHub](https://github.com/danielelic)
+
+### Acknowledgements
+* This work is partially inspired by the work of [jocicmarko](https://github.com/jocicmarko).
