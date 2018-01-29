@@ -5,7 +5,7 @@ The code was developed assuming the use of depth data (e.g. Kinect, Asus Xtion P
 
 You can test these scripts on the following datasets:
 
-* [TVPR (Top View Person Re-identification) Dataset](http://vrai.dii.univpm.it/tvheads-dataset)
+* [TVHeads (Top-View Heads) Dataset](http://vrai.dii.univpm.it/tvheads-dataset)
 * [PIDS (Preterm Infants' Depth Silhouette) Dataset](http://vrai.dii.univpm.it/pids-dataset)
 
 [![YouTubeDemoHeads](https://img.youtube.com/vi/MWjcW-3A5-I/0.jpg)](https://www.youtube.com/watch?v=MWjcW-3A5-I)
