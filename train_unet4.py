@@ -110,14 +110,12 @@ def conv_down(ins, n_filters, pooling=True, batch_norm=False):
     conv = PReLU()(conv)
     pool = None
     if pooling:
-        # pool = MaxPool2D(pool_size=(2, 2))(conv)
         pool = Conv2D(n_filters, (2, 2), strides=(2, 2))(conv)
 
     return conv, pool
 
 
 def conv_up(ins, n_filters, skip, batch_norm=False):
-    # up = concatenate([UpSampling2D(size=(2, 2))(ins), skip], axis=3)
     conv = Conv2DTranspose(n_filters, (3, 3), padding='same', strides=(2, 2))(ins)
     if batch_norm:
         conv = BatchNormalization(axis=3)(conv)

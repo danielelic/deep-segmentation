@@ -1,9 +1,6 @@
 from __future__ import print_function
 
 import os
-import sys
-
-sys.setrecursionlimit(10000)
 
 import numpy as np
 from keras import backend as K, models
@@ -95,6 +92,7 @@ def f1score(y_true, y_pred):
     recall = recall(y_true, y_pred)
     return 2 * ((precision * recall) / (precision + recall))
 
+
 def get_segnet():
     kernel = 3
 
@@ -106,7 +104,6 @@ def get_segnet():
         BatchNormalization(axis=3),
         Activation('relu'),
         MaxPooling2D(),
-        # Dropout(0.5),
 
         Conv2D(64, (kernel, kernel), padding='same'),
         BatchNormalization(axis=3),
@@ -115,7 +112,6 @@ def get_segnet():
         BatchNormalization(axis=3),
         Activation('relu'),
         MaxPooling2D(),
-        # Dropout(0.5),
 
         Conv2D(128, (kernel, kernel), padding='same'),
         BatchNormalization(axis=3),
@@ -127,7 +123,6 @@ def get_segnet():
         BatchNormalization(axis=3),
         Activation('relu'),
         MaxPooling2D(),
-        # Dropout(0.5),
 
         Conv2D(256, (kernel, kernel), padding='same'),
         BatchNormalization(axis=3),
@@ -139,7 +134,6 @@ def get_segnet():
         BatchNormalization(axis=3),
         Activation('relu'),
         MaxPooling2D(),
-        # Dropout(0.5),
 
         Conv2D(256, (kernel, kernel), padding='same'),
         BatchNormalization(axis=3),
@@ -151,7 +145,6 @@ def get_segnet():
         BatchNormalization(axis=3),
         Activation('relu'),
         MaxPooling2D(),
-        # Dropout(0.5),
     ]
 
     autoencoder = models.Sequential()
@@ -171,7 +164,6 @@ def get_segnet():
         Conv2D(256, (kernel, kernel), padding='same'),
         BatchNormalization(axis=3),
         Activation('relu'),
-        # Dropout(0.5),
 
         UpSampling2D(size=(2, 2)),
         Conv2D(256, (kernel, kernel), padding='same'),
@@ -183,7 +175,6 @@ def get_segnet():
         Conv2D(256, (kernel, kernel), padding='same'),
         BatchNormalization(axis=3),
         Activation('relu'),
-        # Dropout(0.5),
 
         UpSampling2D(size=(2, 2)),
         Conv2D(128, (kernel, kernel), padding='same'),
@@ -195,7 +186,6 @@ def get_segnet():
         Conv2D(64, (kernel, kernel), padding='same'),
         BatchNormalization(),
         Activation('relu'),
-        # Dropout(0.5),
 
         UpSampling2D(size=(2, 2)),
         Conv2D(64, (kernel, kernel), padding='same'),
@@ -204,13 +194,11 @@ def get_segnet():
         Conv2D(32, (kernel, kernel), padding='same'),
         BatchNormalization(axis=3),
         Activation('relu'),
-        # Dropout(0.5),
 
         UpSampling2D(size=(2, 2)),
         Conv2D(32, (kernel, kernel), padding='same'),
         BatchNormalization(axis=3),
         Activation('relu'),
-        # Dropout(0.5),
 
         Conv2D(1, (1, 1), padding='valid'),
         BatchNormalization(axis=3),

@@ -1,9 +1,6 @@
 from __future__ import print_function
 
 import os
-import sys
-
-sys.setrecursionlimit(10000)
 
 import numpy as np
 from keras import backend as K
@@ -251,7 +248,7 @@ def train_and_predict(bit):
     print('-' * 30)
     print('Creating and compiling model (bit = ' + str(bit) + ') ...')
     print('-' * 30)
-    model = get_fractalunet()
+    model = get_fractalunet(f=16)
 
     csv_logger = CSVLogger('log_fractalunet_' + str(bit) + '.csv')
     model_checkpoint = ModelCheckpoint('weights_fractalunet_' + str(bit) + '.h5', monitor='val_loss',

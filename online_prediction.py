@@ -18,7 +18,7 @@ if __name__ == '__main__':
     model = get_conv()
     bit = 16
 
-    model.load_weights('weights_conv_' + str(bit) + '2.h5')
+    model.load_weights('weights_conv_16.h5')
 
     dev = openni2.Device
     try:

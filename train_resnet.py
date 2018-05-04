@@ -1,13 +1,10 @@
 from __future__ import print_function
 
 import os
-import sys
-
-sys.setrecursionlimit(10000)
 
 import numpy as np
-from keras import layers
 from keras import backend as K
+from keras import layers
 from keras.callbacks import ModelCheckpoint, CSVLogger
 from keras.layers import Activation
 from keras.layers import Input, Conv2D, ZeroPadding2D, MaxPooling2D, UpSampling2D, concatenate
@@ -97,6 +94,7 @@ def f1score(y_true, y_pred):
     recall = recall(y_true, y_pred)
     return 2 * ((precision * recall) / (precision + recall))
 
+
 def identity_block(input_tensor, kernel_size, filters, stage, block):
     filters1, filters2, filters3 = filters
     if K.image_data_format() == 'channels_last':
@@ -183,10 +181,7 @@ def up_conv_block(input_tensor, kernel_size, filters, stage, block, strides=(1, 
     return x
 
 
-# https://arxiv.org/pdf/1512.03385v1.pdf
-# 50 Layer resnet
-
-def get_resnet(f=16, bn_axis=3, in_channels=1, classes=1):
+def get_resnet(f=16, bn_axis=3, classes=1):
     input = Input((img_rows, img_cols, 1))
     x = ZeroPadding2D((4, 4))(input)
     x = Conv2D(f, (7, 7), strides=(2, 2), name='conv1')(x)
@@ -200,14 +195,10 @@ def get_resnet(f=16, bn_axis=3, in_channels=1, classes=1):
 
     x = conv_block(x2, 3, [f * 2, f * 2, f * 4], stage=3, block='a')
     x = identity_block(x, 3, [f * 2, f * 2, f * 4], stage=3, block='b')
-    # x = identity_block(x, 3, [128, 128, 256], stage=3, block='c')
     x3 = identity_block(x, 3, [f * 2, f * 2, f * 4], stage=3, block='d')
 
     x = conv_block(x3, 3, [f * 4, f * 4, f * 8], stage=4, block='a')
     x = identity_block(x, 3, [f * 4, f * 4, f * 8], stage=4, block='b')
-    # x = identity_block(x, 3, [256, 256, 512], stage=4, block='c')
-    # x = identity_block(x, 3, [256, 256, 512], stage=4, block='d')
-    # x = identity_block(x, 3, [256, 256, 512], stage=4, block='e')
     x4 = identity_block(x, 3, [f * 4, f * 4, f * 8], stage=4, block='f')
 
     x = conv_block(x4, 3, [f * 8, f * 8, f * 16], stage=5, block='a')
@@ -222,16 +213,13 @@ def get_resnet(f=16, bn_axis=3, in_channels=1, classes=1):
 
     x = up_conv_block(x, 3, [f * 16, f * 4, f * 4], stage=7, block='a')
     x = identity_block(x, 3, [f * 16, f * 4, f * 4], stage=7, block='b')
-    # x = identity_block(x, 3, [1024, 256, 256], stage=7, block='c')
-    # x = identity_block(x, 3, [1024, 256, 256], stage=7, block='d')
-    # x = identity_block(x, 3, [1024, 256, 256], stage=7, block='e')
+
     x = identity_block(x, 3, [f * 16, f * 4, f * 4], stage=7, block='f')
 
     x = concatenate([x, x3], axis=bn_axis)
 
     x = up_conv_block(x, 3, [f * 8, f * 2, f * 2], stage=8, block='a')
     x = identity_block(x, 3, [f * 8, f * 2, f * 2], stage=8, block='b')
-    # x = identity_block(x, 3, [512, 128, 128], stage=8, block='c')
     x = identity_block(x, 3, [f * 8, f * 2, f * 2], stage=8, block='d')
 
     x = concatenate([x, x2], axis=bn_axis)
@@ -273,7 +261,7 @@ def train_and_predict(bit):
     print('-' * 30)
     print('Creating and compiling model (bit = ' + str(bit) + ') ...')
     print('-' * 30)
-    model = get_resnet()
+    model = get_resnet(f=16, bn_axis=3, classes=1)
 
     csv_logger = CSVLogger('log_resnet_' + str(bit) + '.csv')
     model_checkpoint = ModelCheckpoint('weights_resnet_' + str(bit) + '.h5', monitor='val_loss', save_best_only=True)

@@ -3,6 +3,8 @@
 This repository contains several CNNs for semantic segmentation (U-Net, SegNet, ResNet, FractalNet) using Keras library.
 The code was developed assuming the use of depth data (e.g. Kinect, Asus Xtion Pro Live).
 
+This project has been included in the paper "Convolutional Networks for Semantic Heads Segmentation using Top-View RGB-D Data in Crowded Environment" accepted in Internation Conference on Pattern Recognition (ICPR), 2018.
+
 You can test these scripts on the following datasets:
 
 * [TVHeads (Top-View Heads) Dataset](http://vrai.dii.univpm.it/tvheads-dataset)

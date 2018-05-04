@@ -1,9 +1,6 @@
 from __future__ import print_function
 
 import os
-import sys
-
-sys.setrecursionlimit(10000)
 
 import numpy as np
 from keras import backend as K
@@ -94,6 +91,7 @@ def f1score(y_true, y_pred):
     recall = recall(y_true, y_pred)
     return 2 * ((precision * recall) / (precision + recall))
 
+
 def get_conv(f=16):
     inputs = Input((img_rows, img_cols, 1))
 
@@ -120,36 +118,25 @@ def get_conv(f=16):
     conv5 = Convolution2D(16 * f, 3, 3, activation='relu', border_mode='same')(conv5)
     conv5 = BatchNormalization()(conv5)
     conv5 = Convolution2D(16 * f, 3, 3, activation='relu', border_mode='same')(conv5)
-    #    dense = Flatten()(conv5)
-    #    dense = Dense(64,activation='relu')(dense)
-    #    dense = Dense(1,activation='hard_sigmoid')(dense)
 
     up1 = merge([UpSampling2D(size=(2, 2))(conv5), conv4], mode='concat', concat_axis=3)
     conv6 = BatchNormalization()(up1)
-    #    conv6 = Dropout(0.3)(up1)
     conv6 = Convolution2D(8 * f, 3, 3, activation='relu', border_mode='same')(conv6)
-    #    conv6 = Dropout(0.3)(conv6)
     conv6 = BatchNormalization()(conv6)
     conv6 = Convolution2D(8 * f, 3, 3, activation='relu', border_mode='same')(conv6)
     up2 = merge([UpSampling2D(size=(2, 2))(conv6), conv3], mode='concat', concat_axis=3)
-    #    conv7 = Dropout(0.3)(up2)
     conv7 = BatchNormalization()(up2)
     conv7 = Convolution2D(4 * f, 3, 3, activation='relu', border_mode='same')(conv7)
-    #    conv7 = Dropout(0.3)(conv7)
     conv7 = BatchNormalization()(conv7)
     conv7 = Convolution2D(4 * f, 3, 3, activation='relu', border_mode='same')(conv7)
     up3 = merge([UpSampling2D(size=(2, 2))(conv7), conv2], mode='concat', concat_axis=3)
-    #    conv8 = Dropout(0.3)(up3)
     conv8 = BatchNormalization()(up3)
     conv8 = Convolution2D(2 * f, 3, 3, activation='relu', border_mode='same')(conv8)
-    #    conv8 = Dropout(0.2)(conv8)
     conv8 = BatchNormalization()(conv8)
     conv8 = Convolution2D(2 * f, 3, 3, activation='relu', border_mode='same')(conv8)
     up4 = merge([UpSampling2D(size=(2, 2))(conv8), conv1], mode='concat', concat_axis=3)
-    #    conv9 = Dropout(0.3)(up4)
     conv9 = BatchNormalization()(up4)
     conv9 = Convolution2D(f, 3, 3, activation='relu', border_mode='same')(conv9)
-    #    conv9 = Dropout(0.4)(conv9)
     conv9 = BatchNormalization()(conv9)
     outputs = Convolution2D(1, 1, 1, activation='hard_sigmoid', border_mode='same')(conv9)
     outputs = Convolution2D(1, 11, 11, activation='hard_sigmoid', border_mode='same')(outputs)
@@ -183,7 +170,7 @@ def train_and_predict(bit):
     print('-' * 30)
     print('Creating and compiling model (bit = ' + str(bit) + ') ...')
     print('-' * 30)
-    model = get_conv()
+    model = get_conv(f=16)
 
     csv_logger = CSVLogger('log_conv_' + str(bit) + '.csv')
     model_checkpoint = ModelCheckpoint('weights_conv_' + str(bit) + '.h5', monitor='val_loss', save_best_only=True)
