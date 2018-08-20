@@ -5,7 +5,7 @@ import os
 import numpy as np
 from keras import backend as K
 from keras.callbacks import ModelCheckpoint, CSVLogger
-from keras.layers import Convolution2D, UpSampling2D, AveragePooling2D, SpatialDropout2D, merge, Input
+from keras.layers import Convolution2D, UpSampling2D, AveragePooling2D, SpatialDropout2D, merge, Input, concatenate
 from keras.layers.advanced_activations import LeakyReLU
 from keras.models import Model
 from keras.optimizers import Adam
@@ -21,6 +21,8 @@ img_cols = 128
 smooth = 1.
 epochs = 200
 
+def merge(inputs, mode, concat_axis=-1):
+    return concatenate(inputs, concat_axis)
 
 def dice_coef(y_true, y_pred):
     y_true_f = K.flatten(y_true)

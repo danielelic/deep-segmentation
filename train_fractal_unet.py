@@ -5,7 +5,7 @@ import os
 import numpy as np
 from keras import backend as K
 from keras.callbacks import ModelCheckpoint, CSVLogger
-from keras.layers import MaxPooling2D, UpSampling2D, Convolution2D, Input, merge
+from keras.layers import MaxPooling2D, UpSampling2D, Convolution2D, Input, merge, concatenate
 from keras.layers.normalization import BatchNormalization
 from keras.models import Model
 from skimage.io import imsave
@@ -20,6 +20,8 @@ img_cols = 128
 smooth = 1.
 epochs = 200
 
+def merge(inputs, mode, concat_axis=-1):
+    return concatenate(inputs, concat_axis)
 
 def dice_coef(y_true, y_pred):
     y_true_f = K.flatten(y_true)

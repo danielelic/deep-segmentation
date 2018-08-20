@@ -23,7 +23,7 @@ if __name__ == '__main__':
     dev = openni2.Device
     try:
         openni2.initialize()
-        dev = openni2.Device.open_file(args.video_path)
+        dev = openni2.Device.open_file(args.video_path.encode('utf-8'))
         print(dev.get_sensor_info(openni2.SENSOR_DEPTH))
     except (RuntimeError, TypeError, NameError):
         print(RuntimeError, TypeError, NameError)
