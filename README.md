@@ -4,7 +4,23 @@ This repository contains several CNNs for semantic segmentation (U-Net, SegNet, 
 The code was developed assuming the use of depth data (e.g. Kinect, Asus Xtion Pro Live).
 
 This project has been included in the paper "Convolutional Networks for Semantic Heads Segmentation using Top-View Depth Data in Crowded Environment" accepted in Internation Conference on Pattern Recognition (ICPR), 2018.
-Tested on:
+
+If you find this code useful, we encourage you to cite the paper. BibTeX:
+
+    @conference {liciotti2018convolutional,
+      title = {Convolutional Networks for Semantic Heads Segmentation using Top-View Depth Data in Crowded Environment},
+      booktitle = {2018 24th International Conference on Pattern Recognition (ICPR)},
+      year = {2018},
+      month = {Aug},
+      pages = {1384-1389},
+      abstract = {Detecting and tracking people is a challenging task in a persistent crowded environment (i.e. retail, airport, station, etc.) for human behaviour analysis of security purposes. This paper introduces an approach to track and detect people in cases of heavy occlusions based on CNNs for semantic segmentation using top-view depth visual data. The purpose is the design of a novel U-Net architecture, U-Net3, that has been modified compared to the previous ones at the end of each layer. In particular, a batch normalization is added after the first ReLU activation function and after each max-pooling and up-sampling functions. The approach was applied and tested on a new and public available dataset, TVHeads Dataset, consisting of depth images of people recorded from an RGB-D camera installed in top-view configuration. Our variant outperforms baseline architectures while remaining computationally efficient at inference time. Results show high accuracy, demonstrating the effectiveness and suitability of our approach.},
+      keywords = {Cameras, Computer architecture, Fractals, Head, Image segmentation, Semantics, Training},
+      issn = {1051-4651},
+      doi = {10.1109/ICPR.2018.8545397},
+      author = {Daniele Liciotti and Marina Paolanti and R. Pietrini and Emanuele Frontoni and Primo Zingaretti}
+    }
+
+The code has been tested on:
 
 * Ubuntu 16.04
 * Python 3.5.2
